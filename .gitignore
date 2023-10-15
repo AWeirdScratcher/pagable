@@ -1,5 +1,5 @@
 poetry.lock
-pyproject.toml # temporary
+pyproject.toml
 .breakpoints
 **/__pycache__/
 .replit
