@@ -1,0 +1,11 @@
+poetry.lock
+pyproject.toml # temporary
+.breakpoints
+**/__pycache__/
+.replit
+replit.nix
+.cache/
+.pythonlibs/
+.upm/
+_pagable.cache
+whoami
