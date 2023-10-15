@@ -1,6 +1,6 @@
-from pagable import throw
+from pagable import alert
 
 
 async def handle():
-    await throw("wtf??")
-    return "uwu."
+    await alert("Welcome to pagable!")
+    return "Welcome!"

@@ -54,7 +54,7 @@ class App:
             "/{full_path:path}",
             self._app_handler
         )
-        
+        self.load_files()
 
     async def _app_handler(self, _: Optional[str] = None):
         with open(
