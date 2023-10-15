@@ -4,6 +4,8 @@
 
 A Python web framework for direct client-side interactions without having to learn Javascript.
 
+**[We're looking for contributors](https://discord.gg/pRWgjYJa3v)**
+
 <div>
 
 ![Get Started](https://img.shields.io/badge/▲%20Get%20Started%20→-20B2AA?style=for-the-badge)
