@@ -66,7 +66,6 @@ $ git clone https://github.com/AWeirdScratcher/pagable
 $ cd pagable
 $ python -m pagable create .
 created app ('.')
-$ cd src
 $ python3 main.py
 ```
 
