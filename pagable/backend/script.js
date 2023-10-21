@@ -27,26 +27,28 @@
                 console.log("[pagable] call")
                 console.table(data)
 
-                if (
-                    data.meta.theme && 
-                    data.meta.theme.toLowerCase() !== "none"
-                ) {
-                    let sheet = document.createElement("link");
-                    let themes = {
-                        auto: "https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css",
-                        light: "https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css",
-                        dark: "https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css"
-                    };
-                    sheet.rel = "stylesheet";
-                    sheet.href = themes[data.meta.theme.toLowerCase()];
-                    sheet.type = "text/css"
-                    document.head.appendChild(sheet);
-                }
+                if (data.ctyp == "md") {
+                    root.innerHTML = data.ctnt;
 
-                root.innerHTML = data.ctnt;
+                    if (
+                        data.meta.theme && 
+                        data.meta.theme.toLowerCase() !== "none"
+                    ) {
+                        let sheet = document.createElement("link");
+                        let themes = {
+                            auto: "https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css",
+                            light: "https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css",
+                            dark: "https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css"
+                        };
+                        sheet.rel = "stylesheet";
+                        sheet.href = themes[data.meta.theme.toLowerCase()];
+                        sheet.type = "text/css"
+                        document.head.appendChild(sheet);
+                    }
 
-                if (data.meta.title) {
-                    document.title = data.meta.title;
+                    if (data.meta.title) {
+                        document.title = data.meta.title;
+                    }
                 }
 
             } else if (data.type == 2) {

@@ -14,7 +14,8 @@ class Element:
         'tag',
         'attrs',
         'children',
-        'attrs'
+        'attrs',
+        '_children'
     )
 
     def __init__(
@@ -37,14 +38,38 @@ class Element:
             **attrs_kwargs: Attrs kwargs for Pythonic references.
         """
         self.children = children
-        self.attrs = attrs
+        self.attrs = {
+            str(k): str(v) for k, v in attrs.items()
+        }
         self.attrs |= {
-            k.replace('_', '-'): v
+            k.replace('_', '-'): str(v)
             for k, v in attrs_kwargs.items()
         }
+        self._init_children()
 
         return self
-    
+
+    def _init_children(self):
+        if isinstance(self.children, Iterable):
+            self._children = [
+                item.mapping if isinstance(item, Element) else str(item)
+                for item in self.children
+            ]
+
+        elif isinstance(self.children, Element):
+            self._children = [self.children.mapping]
+
+        else:
+            self._children = str(self.children)
+
+    @property
+    def mapping(self) -> dict:
+        """Returns a mapping for the JS client to understand."""
+        return {
+            'tag': self.tag,
+            'attrs': self.attrs,
+            'children': self._children
+        }
 
 class _HTML:
     """HTML class for reference.

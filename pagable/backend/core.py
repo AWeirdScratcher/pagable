@@ -102,6 +102,7 @@ class App:
 
                 await ws.send_json(
                     data | {
+                        "ctyp": "md",
                         "ctnt": contents,
                         "meta": contents.metadata # type: ignore
                     }
@@ -114,6 +115,7 @@ class App:
 
                 await ws.send_json(
                     data | {
+                        "ctyp": "py",
                         "ctnt": await comp()
                     }
                 )
