@@ -20,23 +20,35 @@
             const data = JSON.parse(plainData);
 
             if (data.type == 1) {
-                // hmr update
-                console.log("[pagable] hmr update")
-                root.innerHTML = data.ctnt;
+                if (!data.initial)
+                    window.location.reload();
 
-                if (data.meta.theme) {
+                // first call
+                console.log("[pagable] call")
+                console.table(data)
+
+                if (
+                    data.meta.theme && 
+                    data.meta.theme.toLowerCase() !== "none"
+                ) {
+                    let sheet = document.createElement("link");
                     let themes = {
                         auto: "https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css",
                         light: "https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css",
                         dark: "https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css"
                     };
-
-                    document.getElementById("water-stylesheet").href = themes[data.meta.theme];
+                    sheet.rel = "stylesheet";
+                    sheet.href = themes[data.meta.theme.toLowerCase()];
+                    sheet.type = "text/css"
+                    document.head.appendChild(sheet);
                 }
+
+                root.innerHTML = data.ctnt;
 
                 if (data.meta.title) {
                     document.title = data.meta.title;
                 }
+
             } else if (data.type == 2) {
                 // script interaction
                 try {

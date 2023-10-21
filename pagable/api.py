@@ -1,6 +1,6 @@
 import asyncio
 import inspect
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
 
 from .exceptions import PageError
 
@@ -27,6 +27,21 @@ class Component(object):
         self.first_rendered = False
         self.render = func
         self.states = self._next_states = {}
+        self.process_args()
+
+    def process_args(self):
+        params = inspect.signature(self.render).parameters
+
+        for param in params:
+            name = str(param)
+            if params[name].kind not in (
+                inspect.Parameter.POSITIONAL_ONLY, 
+                inspect.Parameter.POSITIONAL_OR_KEYWORD
+            ):
+                continue
+
+            if name.startswith("use_") and name.endswith("_state"):
+                self.states[name] = params[name].default
 
     async def __call__(self):
         """Calls the rendering function."""
@@ -76,7 +91,6 @@ class Component(object):
                 await asyncio.sleep(0.01)
 
             return self.pending_data['ctnt']
-
 
 def get_component() -> Component:
     """Gets the (nearest) function component.

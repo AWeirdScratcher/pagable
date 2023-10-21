@@ -1,5 +1,5 @@
 ---
-theme: auto
+theme: LIGHT
 title: My Markdown Page
 ---
 

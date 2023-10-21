@@ -87,13 +87,15 @@ class App:
             state.clear()
             state.append(val)
 
-        async def update(route: str):
+        async def update(route: str, *, initial: bool = False):
             logger.log("[blue]UPDATE[/]")
             typ = self.mapping[route]['type']
             data = {
                 "type": 1,
-                "meta": {}
+                "meta": {},
+                "initial": initial
             }
+
             if typ == "md":
                 contents = self.mapping[route]['ctnt']
                 set_ctnt(contents)
@@ -115,8 +117,9 @@ class App:
                         "ctnt": await comp()
                     }
                 )
+
         try:
-            await update(route)
+            await update(route, initial=True)
         except Exception as err:
             logger.log(
                 f"[red]ERROR[/] {err}"
