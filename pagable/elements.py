@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Dict, Iterable, Self, Union
+from typing import Dict, Iterable, Union
+from typing_extensions import Self
 
 BlankDict = {}
 
