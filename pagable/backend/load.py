@@ -55,7 +55,6 @@ def map_source(
     module_mapping: ModuleMapping = {}
     absp = os.path.abspath(source)
     abspl = len(absp)  # abs path length
-    clear_requirements()
 
     for base, _, filenames in os.walk(absp):
         if base.endswith('__pycache__'):
