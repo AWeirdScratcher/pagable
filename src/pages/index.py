@@ -1,11 +1,12 @@
-from pagable import alert, html, Requires
+from pagable import alert, html, LocalStorage
 
-requires: Requires = [
-    "styles/index.css",
-    "scripts/index.js"
+requires = [
+    "styles/index.css"
 ]
 
 async def handle():
+    storage = LocalStorage()
+    await storage.clear()
     return [
         html.div(
             "hi"

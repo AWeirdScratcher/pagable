@@ -59,7 +59,7 @@ class LocalStorage(FrontendAPI):
                 String otherwise.
         """
         d: str = await self._inject(
-            f"return window.localStorage.getItem({key!r}"
+            f"return window.localStorage.getItem({key!r})"
         )
         
         try:

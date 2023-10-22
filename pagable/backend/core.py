@@ -67,9 +67,9 @@ class App:
         )
         self.load_files()
 
-    async def _app_handler(self, p: Optional[str] = None):
-        if p:
-            static = os.path.join('public', p)
+    async def _app_handler(self, full_path: Optional[str] = None):
+        if full_path:
+            static = os.path.join('./public', full_path)
             if os.path.exists(static):
                 return FileResponse(static)
 
@@ -214,7 +214,13 @@ class App:
 
                 self.mapping.update(mapped)
 
-                await self.emit(route)
+                try:
+                    await self.emit(route)
+                except Exception as err:
+                    logger.log(
+                        "[red]ERROR (cannot emit)[/] " + str(err)
+                    )
+                    continue
                 
                 _, emoji = get_extension(filename)
                 logger.log(
