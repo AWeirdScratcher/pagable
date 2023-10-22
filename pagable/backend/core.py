@@ -50,6 +50,11 @@ class App:
             StaticFiles(directory="src/styles"), 
             name="styles"
         )
+        self.app.mount(
+            "/",
+            StaticFiles(directory="public"),
+            name="public"
+        )
         self.ws_route = "/__WS__"
         self.app.router.add_api_websocket_route(
             self.ws_route,
@@ -184,7 +189,7 @@ class App:
 
     async def _background_runner(self):
         async for changes in awatch(
-            "./src/", 
+            "./src/pages", 
             #"index.html",
             poll_delay_ms=500
         ):
