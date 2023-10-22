@@ -6,7 +6,7 @@ from typing import List, Union
 
 import uvicorn
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.routing import APIRoute, Optional
 from fastapi.staticfiles import StaticFiles
 from watchfiles import Change, awatch
@@ -50,11 +50,6 @@ class App:
             StaticFiles(directory="src/styles"), 
             name="styles"
         )
-        self.app.mount(
-            "/",
-            StaticFiles(directory="public"),
-            name="public"
-        )
         self.ws_route = "/__WS__"
         self.app.router.add_api_websocket_route(
             self.ws_route,
@@ -72,7 +67,12 @@ class App:
         )
         self.load_files()
 
-    async def _app_handler(self, _: Optional[str] = None):
+    async def _app_handler(self, p: Optional[str] = None):
+        if p:
+            static = os.path.join('public', p)
+            if os.path.exists(static):
+                return FileResponse(static)
+
         with open(
             "index.html", 
             "r", 
