@@ -1,3 +1,31 @@
+import { v4 as uuid4 } from 'https://jspm.dev/uuid'
+
+var allRequirementsId = [];
+
+function addRequirement(requirement) {
+    let head = document.querySelector('head');
+    if (requirement.endsWith('.css')) {
+        let sheet = document.createElement("link")
+
+        sheet.rel = "stylesheet"
+        sheet.href = requirement
+        sheet.type = "text/css"
+        sheet.id = uuid4()
+
+        head.appendChild(sheet);
+        allRequirementsId.push(sheet.id);
+    } else {
+        let scr = document.createElement('script')
+
+        scr.type = "module"
+        scr.src = requirement
+        scr.id = uuid4()
+
+        head.appendChild(scr);
+        allRequirementsId.push(scr.id);
+    }
+}
+
 function parseMapping(mapping) {
     if (typeof mapping == 'string') {
         let paragraph = document.createElement("p");
@@ -79,6 +107,10 @@ function connect() {
                     document.title = data.meta.title;
                 }
             } else if (data.ctyp == "py") {
+                data.requires.forEach((requirement) => {
+                    addRequirement(requirement)
+                })
+
                 root.appendChild(
                     parseMapping(data.ctnt)
                 );

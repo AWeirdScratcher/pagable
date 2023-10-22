@@ -73,8 +73,7 @@ def map_source(
 
             if ext in ("md", "py"):
                 route: str = fp[abspl:][len("/pages"):][:-3]
-                route = route[:-5] if route.endswith("/index") else (route +
-                                                                     "/")
+                route = route[:-5] if route.endswith("/index") else (route + "/")
 
                 if not only and route in mapped:
                     console.print(f"[red b]duplicate route {route}[/]")
