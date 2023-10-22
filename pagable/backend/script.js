@@ -112,7 +112,9 @@ function connect() {
         
     }
     ws.onclose = () => {
-        connect();
+        setTimeout(() => {
+            connect();
+        }, 1000)
     }
 }
 connect();
