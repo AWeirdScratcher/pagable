@@ -109,14 +109,16 @@ class App:
                 )
 
             elif typ == "py":
-                comp = Component(self.module_mapping[route].handle)
+                mod = self.module_mapping[route]
+                comp = Component(mod.handle)
                 comp.__ws__ = ws
                 set_ctnt(comp)
 
                 await ws.send_json(
                     data | {
                         "ctyp": "py",
-                        "ctnt": await comp()
+                        "ctnt": await comp(),
+                        "requires": getattr(mod, "requires", [])
                     }
                 )
 

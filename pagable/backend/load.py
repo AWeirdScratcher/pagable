@@ -55,6 +55,7 @@ def map_source(
     module_mapping: ModuleMapping = {}
     absp = os.path.abspath(source)
     abspl = len(absp)  # abs path length
+    clear_requirements()
 
     for base, _, filenames in os.walk(absp):
         if base.endswith('__pycache__'):
@@ -98,18 +99,20 @@ def map_source(
 
                 else:
                     mod = load(fp)
-                    route: str = getattr(mod, "__route__", route)
-                    cnt: Any = getattr(mod, "handle", None)
+                    route = getattr(mod, "__route__", route)
+                    cnt = getattr(mod, "handle", None)
 
                     if not cnt:
                         console.print(
                             f"[red b]Cannot find coro handle() for {route}[/] "
-                            f"[white d u]{fp}[/]")
+                            f"[white d u]{fp}[/]"
+                        )
                         raise AttributeError
 
                     elif not iscoro(cnt):
                         console.print(
-                            "[red b]export handle() is not coroutine[/]")
+                            "[red b]export handle() is not coroutine[/]"
+                        )
                         raise TypeError
 
                     module_mapping[route] = mod

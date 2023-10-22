@@ -15,7 +15,7 @@ class Component(object):
         "_next_states",
         "__ws__",
         "first_rendered",
-        "pending_data"
+        "pending_data",
     )
     render: FunctionComponent
     states: Dict[str, Any]

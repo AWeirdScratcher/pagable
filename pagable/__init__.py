@@ -2,6 +2,7 @@ from .api import Component, get_component
 from .elements import Element, html
 from .frontend_api import LocalStorage, alert, throw
 from .hooks import use_state
+from .types import Requires
 
 __all__ = (
     "Component",
@@ -11,5 +12,6 @@ __all__ = (
     "LocalStorage",
     "alert",
     "html",
-    "throw"
+    "throw",
+    "Requires"
 )
