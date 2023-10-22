@@ -8,6 +8,7 @@ import uvicorn
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, Response
 from fastapi.routing import APIRoute, Optional
+from fastapi.staticfiles import StaticFiles
 from watchfiles import Change, awatch
 
 from ..api import Component
@@ -38,6 +39,16 @@ class App:
             docs_url=None, 
             redoc_url=None,
             lifespan=self._lifespan
+        )
+        self.app.mount(
+            "/scripts", 
+            StaticFiles(directory="src/scripts"), 
+            name="scripts"
+        )
+        self.app.mount(
+            "/styles", 
+            StaticFiles(directory="src/styles"), 
+            name="styles"
         )
         self.ws_route = "/__WS__"
         self.app.router.add_api_websocket_route(

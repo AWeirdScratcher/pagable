@@ -1,5 +1,9 @@
-from pagable import alert, html
+from pagable import alert, html, Requires
 
+requires: Requires = [
+    "styles/index.css",
+    "scripts/index.js"
+]
 
 async def handle():
     return [
