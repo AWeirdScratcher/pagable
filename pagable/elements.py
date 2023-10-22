@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Dict, Iterable, Union
+from typing import Dict, List, Union
 from typing_extensions import Self
 
 BlankDict = {}
@@ -27,14 +27,14 @@ class Element:
 
     def __call__(
         self,
-        children: Union[Element, str, Iterable[Element]] = "",
+        children: Union[Element, str, List[Element]] = "",
         attrs: Dict[str, str] = BlankDict,
         **attrs_kwargs
     ) -> Self:
         """Appends attributes and children to this element.
 
         Args:
-            children (Element | str | Iterable[Element]): The children.
+            children (Element | str | List[Element]): The children.
             attrs (Dict[str, str]): Attributes, if any.
             **attrs_kwargs: Attrs kwargs for Pythonic references.
         """
@@ -51,7 +51,7 @@ class Element:
         return self
 
     def _init_children(self):
-        if isinstance(self.children, Iterable):
+        if isinstance(self.children, List):
             self._children = [
                 item.mapping if isinstance(item, Element) else str(item)
                 for item in self.children
@@ -118,7 +118,7 @@ class _HTML:
     def __call__(
         self,
         tag: str,
-        children: Union[Element, str, Iterable[Element]] = "",
+        children: Union[Element, str, List[Element]] = "",
         attrs: Dict[str, str] = BlankDict,
         **attrs_kwargs
     ) -> Element:

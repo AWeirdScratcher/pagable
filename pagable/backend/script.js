@@ -1,4 +1,33 @@
 (() => {
+    function parseMapping(mapping) {
+        if (typeof mapping == 'string') {
+            let paragraph = document.createElement("p");
+            paragraph.textContent = mapping;
+            return paragraph;
+
+        } else if (Array.isArray(mapping)) {
+            let div = document.createElement("div");
+
+            mapping.forEach((item) => {
+                div.appendChild(
+                    parseMapping(item)
+                )
+            })
+
+            return div
+
+        } else if (typeof mapping == 'object') {
+            let element = document.createElement(mapping.tag);
+            element.appendChild(
+                parseMapping(mapping.children)
+            )
+            for (const attr in mapping.attrs) {
+                element[attr] = mapping.attrs[attr]
+            }
+
+            return element
+        }
+    }
     function connect() {
         console.log("[pagable] connecting");
 
@@ -21,7 +50,7 @@
 
             if (data.type == 1) {
                 if (!data.initial)
-                    window.location.reload();
+                    return window.location.reload();
 
                 // first call
                 console.log("[pagable] call")
@@ -49,6 +78,10 @@
                     if (data.meta.title) {
                         document.title = data.meta.title;
                     }
+                } else if (data.ctyp == "py") {
+                    root.appendChild(
+                        parseMapping(data.ctnt)
+                    );
                 }
 
             } else if (data.type == 2) {

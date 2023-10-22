@@ -126,6 +126,7 @@ class App:
             logger.log(
                 f"[red]ERROR[/] {err}"
             )
+            raise err
             return
         
         if isinstance(state[0], Component):

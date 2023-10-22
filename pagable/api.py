@@ -2,6 +2,7 @@ import asyncio
 import inspect
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union, overload
 
+from .elements import Element
 from .exceptions import PageError
 
 FunctionComponent = Callable[..., Any]
@@ -43,10 +44,21 @@ class Component(object):
             if name.startswith("use_") and name.endswith("_state"):
                 self.states[name] = params[name].default
 
+    def _get_content(self, data):
+        if isinstance(data, Element):
+            return data.mapping
+
+        elif isinstance(data, List):
+            return [self._get_content(item) for item in data]
+
+        else:
+            return str(data)
+
     async def __call__(self):
         """Calls the rendering function."""
         self.forward_state_updates()
-        return await self.render()
+        data = await self.render()
+        return self._get_content(data)
 
     def update_state(self, key: str, value: Any):
         """Updates a state for next the next render.
