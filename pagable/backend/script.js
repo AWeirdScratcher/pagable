@@ -145,7 +145,7 @@ function connect() {
     }
     ws.onclose = () => {
         setTimeout(() => {
-            connect();
+            window.location.reload()
         }, 1000)
     }
 }
