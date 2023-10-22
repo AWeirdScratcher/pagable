@@ -6,15 +6,15 @@
             return paragraph;
 
         } else if (Array.isArray(mapping)) {
-            let div = document.createElement("div");
+            let fragment = new DocumentFragment();
 
             mapping.forEach((item) => {
-                div.appendChild(
+                fragment.appendChild(
                     parseMapping(item)
                 )
             })
 
-            return div
+            return fragment
 
         } else if (typeof mapping == 'object') {
             let element = document.createElement(mapping.tag);

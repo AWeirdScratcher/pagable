@@ -88,7 +88,7 @@ class App:
             state.append(val)
 
         async def update(route: str, *, initial: bool = False):
-            logger.log("[blue]UPDATE[/]")
+            #logger.log("[blue]UPDATE[/]")
             typ = self.mapping[route]['type']
             data = {
                 "type": 1,
@@ -180,7 +180,15 @@ class App:
                     continue
 
                 diff, filename = change
-                mapped, modules = map_source(only=filename)
+                try:
+                    mapped, modules = map_source(only=filename)
+                except Exception as err:
+                    logger.log(
+                        "[red]ERROR (reload failed)[/] " + 
+                        str(err)
+                    )
+                    continue
+
                 route = mapped['$new']['route']
 
                 if filename.endswith(".py"):
