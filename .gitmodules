@@ -1,0 +1,3 @@
+[submodule "pagable-docs"]
+	path = pagable-docs
+	url = https://github.com/AWeirdScratcher/pagable-docs

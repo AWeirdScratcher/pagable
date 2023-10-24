@@ -61,7 +61,7 @@ Enough of the features! I want the CONTENT!
 
 To install and run:
 
-```bash
+```shell
 $ git clone https://github.com/AWeirdScratcher/pagable
 $ cd pagable
 $ python -m pagable create .
@@ -69,7 +69,23 @@ created app ('.')
 $ python3 main.py
 ```
 
-> Note: This project is still a WIP. If you wish to contribute and help me build this project, please [Contact Me](https://github.com/AWeirdScratcher/pagable)
+Simple Python page example:
+
+```python
+from pagable import html
+
+
+async def handle():
+    return [
+        html.h1("Welcome!"),
+        html.p([
+            "This page is amazing, isn't it? ",
+            html.a("Click me!", href="https://google.com")
+        ]),
+    ]
+```
+
+> Note: This project is still a WIP. If you wish to contribute and help me build this project, please [Contact Me](https://discord.gg/pRWgjYJa3v)
 
 ***
 

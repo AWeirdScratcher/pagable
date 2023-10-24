@@ -1,17 +1,10 @@
-from pagable import alert, html, LocalStorage
+from pagable import html
 
-requires = [
-    "styles/index.css"
-]
 
 async def handle():
-    storage = LocalStorage()
-    await storage.clear()
     return [
-        html.div(
-            "hi"
-        ),
-        html.h1(
-            "i love chocolate!"
-        )
+        html.h1("Welcome!"),
+        html.p([,
+            html.a("Click me!", href="https://google.com")
+        ]),
     ]
